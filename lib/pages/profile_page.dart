@@ -4,14 +4,14 @@ import 'package:tauker_mobile/components/avatar.dart';
 import 'package:tauker_mobile/main.dart';
 import 'package:tauker_mobile/pages/login_page.dart';
 
-class AccountPage extends StatefulWidget {
-  const AccountPage({super.key});
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
 
   @override
-  State<AccountPage> createState() => _AccountPageState();
+  State<ProfilePage> createState() => _AccountPageState();
 }
 
-class _AccountPageState extends State<AccountPage> {
+class _AccountPageState extends State<ProfilePage> {
   String _username = '';
   String? _avatarUrl;
   var _loading = true;

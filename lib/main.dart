@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:tauker_mobile/pages/account_page.dart';
+import 'package:tauker_mobile/pages/profile_page.dart';
 import 'package:tauker_mobile/pages/login_page.dart';
 
 void main() async {
@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
       ),
       home: supabase.auth.currentSession == null
           ? const LoginPage()
-          : const AccountPage(),
+          : const ProfilePage(),
     );
   }
 }

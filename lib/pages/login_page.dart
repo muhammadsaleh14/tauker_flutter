@@ -6,7 +6,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:tauker_mobile/main.dart';
 
-import 'account_page.dart';
+import 'profile_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -53,22 +53,30 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   void initState() {
+
     _authStateSubscription = supabase.auth.onAuthStateChange.listen(
           (data) {
         if (_redirecting) return;
         final session = data.session;
         if (session != null) {
           _redirecting = true;
-          Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => const AccountPage()),
-          );
+          if (mounted){
+            Navigator.of(context).pushReplacement(
+              MaterialPageRoute(builder: (context) => const ProfilePage()),
+            );
+          }
         }
       },
       onError: (error) {
+
         if (error is AuthException) {
+          if (mounted){
           context.showSnackBar(error.message, isError: true);
+          }
         } else {
+          if (mounted){
           context.showSnackBar('Unexpected error occurred', isError: true);
+          }
         }
       },
     );
