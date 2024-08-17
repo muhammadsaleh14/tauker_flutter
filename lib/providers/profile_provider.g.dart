@@ -6,169 +6,38 @@ part of 'profile_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$profileNotifierHash() => r'956f00567691029cbf9419a84d9e52c65a4a0f18';
+String _$currentProfileIdNotifierHash() =>
+    r'c7733773c5389825d1c0c16a93904f60328e6306';
 
-/// Copied from Dart SDK
-class _SystemHash {
-  _SystemHash._();
+/// See also [CurrentProfileIdNotifier].
+@ProviderFor(CurrentProfileIdNotifier)
+final currentProfileIdNotifierProvider =
+    AutoDisposeNotifierProvider<CurrentProfileIdNotifier, String?>.internal(
+  CurrentProfileIdNotifier.new,
+  name: r'currentProfileIdNotifierProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$currentProfileIdNotifierHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
 
-  static int combine(int hash, int value) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + value);
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
-    return hash ^ (hash >> 6);
-  }
-
-  static int finish(int hash) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
-    // ignore: parameter_assignments
-    hash = hash ^ (hash >> 11);
-    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
-  }
-}
-
-abstract class _$ProfileNotifier
-    extends BuildlessAutoDisposeAsyncNotifier<Profile> {
-  late final String userId;
-
-  FutureOr<Profile> build(
-    String userId,
-  );
-}
+typedef _$CurrentProfileIdNotifier = AutoDisposeNotifier<String?>;
+String _$profileNotifierHash() => r'00c024ebc2e22e274ea515506dd1d8ddf056543b';
 
 /// See also [ProfileNotifier].
 @ProviderFor(ProfileNotifier)
-const profileNotifierProvider = ProfileNotifierFamily();
+final profileNotifierProvider =
+    AutoDisposeAsyncNotifierProvider<ProfileNotifier, Profile>.internal(
+  ProfileNotifier.new,
+  name: r'profileNotifierProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$profileNotifierHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
 
-/// See also [ProfileNotifier].
-class ProfileNotifierFamily extends Family<AsyncValue<Profile>> {
-  /// See also [ProfileNotifier].
-  const ProfileNotifierFamily();
-
-  /// See also [ProfileNotifier].
-  ProfileNotifierProvider call(
-    String userId,
-  ) {
-    return ProfileNotifierProvider(
-      userId,
-    );
-  }
-
-  @override
-  ProfileNotifierProvider getProviderOverride(
-    covariant ProfileNotifierProvider provider,
-  ) {
-    return call(
-      provider.userId,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'profileNotifierProvider';
-}
-
-/// See also [ProfileNotifier].
-class ProfileNotifierProvider
-    extends AutoDisposeAsyncNotifierProviderImpl<ProfileNotifier, Profile> {
-  /// See also [ProfileNotifier].
-  ProfileNotifierProvider(
-    String userId,
-  ) : this._internal(
-          () => ProfileNotifier()..userId = userId,
-          from: profileNotifierProvider,
-          name: r'profileNotifierProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$profileNotifierHash,
-          dependencies: ProfileNotifierFamily._dependencies,
-          allTransitiveDependencies:
-              ProfileNotifierFamily._allTransitiveDependencies,
-          userId: userId,
-        );
-
-  ProfileNotifierProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.userId,
-  }) : super.internal();
-
-  final String userId;
-
-  @override
-  FutureOr<Profile> runNotifierBuild(
-    covariant ProfileNotifier notifier,
-  ) {
-    return notifier.build(
-      userId,
-    );
-  }
-
-  @override
-  Override overrideWith(ProfileNotifier Function() create) {
-    return ProviderOverride(
-      origin: this,
-      override: ProfileNotifierProvider._internal(
-        () => create()..userId = userId,
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        userId: userId,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeAsyncNotifierProviderElement<ProfileNotifier, Profile>
-      createElement() {
-    return _ProfileNotifierProviderElement(this);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is ProfileNotifierProvider && other.userId == userId;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, userId.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-mixin ProfileNotifierRef on AutoDisposeAsyncNotifierProviderRef<Profile> {
-  /// The parameter `userId` of this provider.
-  String get userId;
-}
-
-class _ProfileNotifierProviderElement
-    extends AutoDisposeAsyncNotifierProviderElement<ProfileNotifier, Profile>
-    with ProfileNotifierRef {
-  _ProfileNotifierProviderElement(super.provider);
-
-  @override
-  String get userId => (origin as ProfileNotifierProvider).userId;
-}
+typedef _$ProfileNotifier = AutoDisposeAsyncNotifier<Profile>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

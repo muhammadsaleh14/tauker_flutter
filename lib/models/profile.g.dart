@@ -9,13 +9,13 @@ part of 'profile.dart';
 _$ProfileImpl _$$ProfileImplFromJson(Map<String, dynamic> json) =>
     _$ProfileImpl(
       username: json['username'] as String,
-      avatarUrl: json['avatarUrl'] as String?,
-      introAudioUrl: json['introAudioUrl'] as String?,
+      avatar_url: json['avatar_url'] as String?,
+      intro_audio_url: json['intro_audio_url'] as String?,
     );
 
 Map<String, dynamic> _$$ProfileImplToJson(_$ProfileImpl instance) =>
     <String, dynamic>{
       'username': instance.username,
-      'avatarUrl': instance.avatarUrl,
-      'introAudioUrl': instance.introAudioUrl,
+      'avatar_url': instance.avatar_url,
+      'intro_audio_url': instance.intro_audio_url,
     };

@@ -1,56 +1,71 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:tauker_mobile/main.dart';
+import 'package:tauker_mobile/providers/profile_provider.dart';
 
-class Avatar extends StatefulWidget {
+class Avatar extends ConsumerStatefulWidget {
   const Avatar({
     super.key,
-    required this.imageUrl,
   });
 
-  final String? imageUrl;
 
   @override
-  State<Avatar> createState() => _AvatarState();
+  ConsumerState<Avatar> createState() => _AvatarState();
 }
 
-class _AvatarState extends State<Avatar> {
+class _AvatarState extends ConsumerState<Avatar> {
   bool _isLoading = false;
-  String? _imageUrl;
 
   @override
   void initState() {
     super.initState();
-    _imageUrl = widget.imageUrl;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        if (_imageUrl == null || _imageUrl!.isEmpty)
-          Container(
-            width: 150,
-            height: 150,
-            color: Colors.grey,
-            child: const Center(
-              child: Text('No Image'),
-            ),
-          )
-        else
-          Image.network(
-            _imageUrl!,
-            width: 150,
-            height: 150,
-            fit: BoxFit.cover,
-          ),
-        ElevatedButton(
-          onPressed: _isLoading ? null : _upload,
-          child: const Text('Upload'),
-        ),
-      ],
-    );
+    final profileState = ref.watch(profileNotifierProvider);
+
+    return profileState.when(
+
+        data:
+            (profile) {
+          print("avatar url value${profile.avatar_url}");
+          return Column(
+            children: [
+              if (profile.avatar_url == null || profile.avatar_url!.isEmpty)
+                Container(
+                  width: 150,
+                  height: 150,
+                  color: Colors.grey,
+                  child: const Center(
+                    child: Text('No Image'),
+                  ),
+                )
+              else
+
+                Image.network(
+                  profile.avatar_url!,
+                  width: 150,
+                  height: 150,
+                  fit: BoxFit.cover,
+                ),
+              ElevatedButton(
+                onPressed: _isLoading ? null : _upload,
+                child: const Text('Upload'),
+              ),
+            ],
+          );
+        },
+        error:
+            (error, stack) {
+          return Center(child: Text(error.toString()));
+        },
+        loading:
+            () {
+          return const Center(child: Text('loading'));
+        });
   }
 
   Future<void> _upload() async {
@@ -60,32 +75,34 @@ class _AvatarState extends State<Avatar> {
       maxWidth: 300,
       maxHeight: 300,
     );
+
     if (imageFile == null) {
-      return;
+      return; // User canceled the picker
     }
 
     setState(() => _isLoading = true);
 
     try {
-      final bytes = await imageFile.readAsBytes();
-      final fileExt = imageFile.path.split('.').last;
-      final fileName = '${DateTime.now().toIso8601String()}.$fileExt';
-      final filePath = fileName;
+      // Call your Riverpod function to upload the image and create the URL here
+      await ref.read(profileNotifierProvider.notifier).editAvatar(imageFile);
 
-      // Upload image to Supabase storage
-      await supabase.storage.from('avatars').uploadBinary(
-        filePath,
-        bytes,
-        fileOptions: FileOptions(contentType: imageFile.mimeType),
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Updated your profile image!'),
+          backgroundColor: Colors.green,
+        ),
       );
-
-      // Create a signed URL for the uploaded image
-      final imageUrlResponse = await supabase.storage
-          .from('avatars')
-          .createSignedUrl(filePath, 60 * 60 * 24 * 365 * 10);
-      _onUpload(imageUrlResponse);
     } on StorageException catch (error) {
-      if(!mounted) return;
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(error.message),
+          backgroundColor: Colors.red,
+        ),
+      );
+    } on PostgrestException catch (error) {
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(error.message),
@@ -93,7 +110,7 @@ class _AvatarState extends State<Avatar> {
         ),
       );
     } catch (error) {
-      if(!mounted) return;
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Unexpected error occurred'),
@@ -101,42 +118,11 @@ class _AvatarState extends State<Avatar> {
         ),
       );
     } finally {
+      if (!mounted) return;
       setState(() => _isLoading = false);
     }
   }
 
-  Future<void> _onUpload(String imageUrl) async {
-    try {
-      final userId = supabase.auth.currentUser!.id;
-      await supabase.from('profiles').upsert({
-        'id': userId,
-        'avatar_url': imageUrl,
-      });
-      setState(() {
-        _imageUrl = imageUrl;
-      });
-
-      if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content:  Text('Updated your profile image!'),
-          backgroundColor: Colors.green,
-        ),
-      );
-    } on PostgrestException catch (error) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(error.message),
-          backgroundColor: Colors.red,
-        ),
-      );
-    } catch (error) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Unexpected error occurred'),
-          backgroundColor: Colors.red,
-        ),
-      );
-    }
-  }
 }
+
+

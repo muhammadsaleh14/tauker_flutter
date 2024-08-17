@@ -21,11 +21,8 @@ Profile _$ProfileFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Profile {
   String get username => throw _privateConstructorUsedError;
-  set username(String value) => throw _privateConstructorUsedError;
-  String? get avatarUrl => throw _privateConstructorUsedError;
-  set avatarUrl(String? value) => throw _privateConstructorUsedError;
-  String? get introAudioUrl => throw _privateConstructorUsedError;
-  set introAudioUrl(String? value) => throw _privateConstructorUsedError;
+  String? get avatar_url => throw _privateConstructorUsedError;
+  String? get intro_audio_url => throw _privateConstructorUsedError;
 
   /// Serializes this Profile to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -41,7 +38,7 @@ abstract class $ProfileCopyWith<$Res> {
   factory $ProfileCopyWith(Profile value, $Res Function(Profile) then) =
       _$ProfileCopyWithImpl<$Res, Profile>;
   @useResult
-  $Res call({String username, String? avatarUrl, String? introAudioUrl});
+  $Res call({String username, String? avatar_url, String? intro_audio_url});
 }
 
 /// @nodoc
@@ -60,21 +57,21 @@ class _$ProfileCopyWithImpl<$Res, $Val extends Profile>
   @override
   $Res call({
     Object? username = null,
-    Object? avatarUrl = freezed,
-    Object? introAudioUrl = freezed,
+    Object? avatar_url = freezed,
+    Object? intro_audio_url = freezed,
   }) {
     return _then(_value.copyWith(
       username: null == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String,
-      avatarUrl: freezed == avatarUrl
-          ? _value.avatarUrl
-          : avatarUrl // ignore: cast_nullable_to_non_nullable
+      avatar_url: freezed == avatar_url
+          ? _value.avatar_url
+          : avatar_url // ignore: cast_nullable_to_non_nullable
               as String?,
-      introAudioUrl: freezed == introAudioUrl
-          ? _value.introAudioUrl
-          : introAudioUrl // ignore: cast_nullable_to_non_nullable
+      intro_audio_url: freezed == intro_audio_url
+          ? _value.intro_audio_url
+          : intro_audio_url // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -87,7 +84,7 @@ abstract class _$$ProfileImplCopyWith<$Res> implements $ProfileCopyWith<$Res> {
       __$$ProfileImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String username, String? avatarUrl, String? introAudioUrl});
+  $Res call({String username, String? avatar_url, String? intro_audio_url});
 }
 
 /// @nodoc
@@ -104,21 +101,21 @@ class __$$ProfileImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? username = null,
-    Object? avatarUrl = freezed,
-    Object? introAudioUrl = freezed,
+    Object? avatar_url = freezed,
+    Object? intro_audio_url = freezed,
   }) {
     return _then(_$ProfileImpl(
       username: null == username
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String,
-      avatarUrl: freezed == avatarUrl
-          ? _value.avatarUrl
-          : avatarUrl // ignore: cast_nullable_to_non_nullable
+      avatar_url: freezed == avatar_url
+          ? _value.avatar_url
+          : avatar_url // ignore: cast_nullable_to_non_nullable
               as String?,
-      introAudioUrl: freezed == introAudioUrl
-          ? _value.introAudioUrl
-          : introAudioUrl // ignore: cast_nullable_to_non_nullable
+      intro_audio_url: freezed == intro_audio_url
+          ? _value.intro_audio_url
+          : intro_audio_url // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -127,22 +124,41 @@ class __$$ProfileImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$ProfileImpl implements _Profile {
-  _$ProfileImpl({required this.username, this.avatarUrl, this.introAudioUrl});
+  _$ProfileImpl(
+      {required this.username, this.avatar_url, this.intro_audio_url});
 
   factory _$ProfileImpl.fromJson(Map<String, dynamic> json) =>
       _$$ProfileImplFromJson(json);
 
   @override
-  String username;
+  final String username;
   @override
-  String? avatarUrl;
+  final String? avatar_url;
   @override
-  String? introAudioUrl;
+  final String? intro_audio_url;
 
   @override
   String toString() {
-    return 'Profile(username: $username, avatarUrl: $avatarUrl, introAudioUrl: $introAudioUrl)';
+    return 'Profile(username: $username, avatar_url: $avatar_url, intro_audio_url: $intro_audio_url)';
   }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ProfileImpl &&
+            (identical(other.username, username) ||
+                other.username == username) &&
+            (identical(other.avatar_url, avatar_url) ||
+                other.avatar_url == avatar_url) &&
+            (identical(other.intro_audio_url, intro_audio_url) ||
+                other.intro_audio_url == intro_audio_url));
+  }
+
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, username, avatar_url, intro_audio_url);
 
   /// Create a copy of Profile
   /// with the given fields replaced by the non-null parameter values.
@@ -162,21 +178,18 @@ class _$ProfileImpl implements _Profile {
 
 abstract class _Profile implements Profile {
   factory _Profile(
-      {required String username,
-      String? avatarUrl,
-      String? introAudioUrl}) = _$ProfileImpl;
+      {required final String username,
+      final String? avatar_url,
+      final String? intro_audio_url}) = _$ProfileImpl;
 
   factory _Profile.fromJson(Map<String, dynamic> json) = _$ProfileImpl.fromJson;
 
   @override
   String get username;
-  set username(String value);
   @override
-  String? get avatarUrl;
-  set avatarUrl(String? value);
+  String? get avatar_url;
   @override
-  String? get introAudioUrl;
-  set introAudioUrl(String? value);
+  String? get intro_audio_url;
 
   /// Create a copy of Profile
   /// with the given fields replaced by the non-null parameter values.
