@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:tauker_mobile/components/avatar.dart';
+import 'package:tauker_mobile/components/avatar_comp.dart';
 import 'package:tauker_mobile/main.dart';
 import 'package:tauker_mobile/pages/login_page.dart';
 
@@ -116,7 +116,7 @@ class _EditAccountPageState extends State<EditProfilePage> {
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
         children: [
-          Avatar(
+          AvatarComp(
             imageUrl: _avatarUrl,
           ),
           const SizedBox(height: 18),

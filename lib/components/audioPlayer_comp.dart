@@ -1,22 +1,24 @@
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:tauker_mobile/state_management/page_manager.dart';
+import 'package:tauker_mobile/state_management/audioPlayer_manager.dart';
 
-class AudioplayerPage extends StatefulWidget {
-  const AudioplayerPage({super.key});
+class AudioplayerComp extends StatefulWidget {
+  final String? audioUrl;
+  const AudioplayerComp({super.key, required this.audioUrl});
 
   @override
-  State<AudioplayerPage> createState() => _AudioplayerPageState();
+  State<AudioplayerComp> createState() => _AudioplayerCompState();
 }
 
-class _AudioplayerPageState extends State<AudioplayerPage> {
-  late final PageManager _pageManager;
+class _AudioplayerCompState extends State<AudioplayerComp> {
+  late final AudioPlayerManager _pageManager;
 
   @override
   void initState() {
     super.initState();
-    _pageManager = PageManager();
-
+    if(widget.audioUrl != null){
+      _pageManager = AudioPlayerManager(audioUrl: widget.audioUrl!);
+    }
 
   }
 
@@ -28,13 +30,14 @@ class _AudioplayerPageState extends State<AudioplayerPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Padding(
+    if (widget.audioUrl == null){
+      return const Center(child: Text('No Audio,add button here'));
+    }
+    return
+      Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
-              const Spacer(),
               ValueListenableBuilder<ProgressBarState>(
                 valueListenable: _pageManager.progressNotifier,
                 builder: (_, value, __) {
@@ -74,8 +77,6 @@ class _AudioplayerPageState extends State<AudioplayerPage> {
               ),
             ],
           ),
-        ),
-      ),
-    );
+        );
   }
 }

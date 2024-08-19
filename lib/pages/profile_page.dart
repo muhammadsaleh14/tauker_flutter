@@ -1,7 +1,8 @@
   import 'package:flutter/material.dart';
   import 'package:flutter_riverpod/flutter_riverpod.dart';
   import 'package:supabase_flutter/supabase_flutter.dart';
-  import 'package:tauker_mobile/components/avatar.dart';
+import 'package:tauker_mobile/components/audioPlayer_comp.dart';
+  import 'package:tauker_mobile/components/avatar_comp.dart';
   import 'package:tauker_mobile/main.dart';
   import 'package:tauker_mobile/pages/login_page.dart';
   import 'package:tauker_mobile/providers/profile_provider.dart';
@@ -50,7 +51,7 @@
               return ListView(
                 padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
                 children: [
-                  const Avatar(),
+                  const AvatarComp(),
                   const SizedBox(height: 18),
                   Center(
                       child: Text(profile.username,style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, letterSpacing: 2))
@@ -112,9 +113,9 @@
                         ),
                       ),
                     ],
-                  )
-                  // Display the username as a simple label
-                  ,
+                  ),
+                  const SizedBox(height: 18),
+                  AudioplayerComp(audioUrl: profile.intro_audio_url),
                   const SizedBox(height: 18),
                   TextButton(onPressed: _signOut, child: const Text('Sign Out')),
                 ],

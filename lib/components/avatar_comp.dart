@@ -5,17 +5,17 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:tauker_mobile/main.dart';
 import 'package:tauker_mobile/providers/profile_provider.dart';
 
-class Avatar extends ConsumerStatefulWidget {
-  const Avatar({
+class AvatarComp extends ConsumerStatefulWidget {
+  const AvatarComp({
     super.key,
   });
 
 
   @override
-  ConsumerState<Avatar> createState() => _AvatarState();
+  ConsumerState<AvatarComp> createState() => _AvatarState();
 }
 
-class _AvatarState extends ConsumerState<Avatar> {
+class _AvatarState extends ConsumerState<AvatarComp> {
   bool _isLoading = false;
 
   @override

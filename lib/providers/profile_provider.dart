@@ -31,7 +31,6 @@
       }
 
       print('Running build for provider with profileId: $profileId');
-      throw Exception("kdnjsn");
       final data = await supabase
           .from('profiles')
           .select()
