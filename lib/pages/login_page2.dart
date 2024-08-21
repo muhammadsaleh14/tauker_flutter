@@ -8,14 +8,14 @@ import 'package:tauker_mobile/main.dart';
 
 import 'profile_page.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class LoginPage2 extends StatefulWidget {
+  const LoginPage2({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<LoginPage2> createState() => _LoginPage2State();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPage2State extends State<LoginPage2> {
   bool _isLoading = false;
   bool _redirecting = false;
   late final TextEditingController _emailController = TextEditingController();
@@ -28,6 +28,9 @@ class _LoginPageState extends State<LoginPage> {
       });
       await supabase.auth.signInWithOtp(
         email: _emailController.text.trim(),
+        data: {
+          'username': 'Saleh',
+        },
         emailRedirectTo:
         kIsWeb ? null : 'io.supabase.flutterquickstart://login-callback/',
       );

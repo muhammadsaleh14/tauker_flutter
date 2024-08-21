@@ -10,7 +10,10 @@ class AudioPlayerManager {
     _init();
   }
   void _init() async {
+    // await AudioPlayer.clearAssetCache();
+    // final audioSource = LockCachingAudioSource(audioUrl as Uri);
     _audioPlayer = AudioPlayer();
+    // _audioPlayer.setAudioSource(audioSource);
     await _audioPlayer.setUrl(audioUrl);
 
     _audioPlayer.playerStateStream.listen((playerState) {
@@ -74,6 +77,7 @@ class AudioPlayerManager {
   final buttonNotifier = ValueNotifier<ButtonState>(ButtonState.paused);
 
   void dispose() {
+    // await audioSource.clearCache();
     _audioPlayer.dispose();
   }
 }

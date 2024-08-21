@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:tauker_mobile/components/avatar_comp.dart';
 import 'package:tauker_mobile/main.dart';
-import 'package:tauker_mobile/pages/login_page.dart';
+import 'package:tauker_mobile/pages/login_page2.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
@@ -90,7 +90,7 @@ class _EditAccountPageState extends State<EditProfilePage> {
     } finally {
       if (mounted) {
         Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => const LoginPage()),
+          MaterialPageRoute(builder: (_) => const LoginPage2()),
         );
       }
     }
