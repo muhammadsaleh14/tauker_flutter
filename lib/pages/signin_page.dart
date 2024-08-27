@@ -4,8 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:tauker_mobile/components/buttons/myButton_comp.dart';
-import 'package:tauker_mobile/components/my_textfield.dart';
-import 'package:tauker_mobile/components/square_tile.dart';
+import 'package:tauker_mobile/components/myTextField_comp.dart';
+import 'package:tauker_mobile/components/squareTile_comp.dart';
 import 'package:tauker_mobile/main.dart';
 import 'package:tauker_mobile/pages/profile_page.dart';
 
@@ -66,8 +66,8 @@ class _SigninPageState extends State<SigninPage> {
   }
 
   final _emailController = TextEditingController();
-
   final _passwordController = TextEditingController();
+  final _usernameController = TextEditingController();
 
   bool _signingIn = true;
 
@@ -77,7 +77,10 @@ class _SigninPageState extends State<SigninPage> {
       final AuthResponse res = await supabase.auth.signUp(
           email: _emailController.text,
           password: _passwordController.text,
-          emailRedirectTo:  kIsWeb ? null : 'io.supabase.flutterquickstart://login-callback/');
+          emailRedirectTo:  kIsWeb ? null : 'io.supabase.flutterquickstart://login-callback/',
+          data: {
+            'username': _usernameController
+          });
     } catch (error) {
       if (mounted) {
         print('printing error if any: ${error.toString()}');
@@ -119,6 +122,7 @@ class _SigninPageState extends State<SigninPage> {
     _emailController.dispose();
     _passwordController.dispose();
     _authStateSubscription.cancel();
+    _usernameController.dispose();
   }
 
   @override
@@ -152,7 +156,7 @@ class _SigninPageState extends State<SigninPage> {
             const SizedBox(height: 25),
 
             // Email textfield
-            MyTextField(
+            MyTextFieldComp(
               controller: _emailController,
               hintText: 'Email',
               obscureText: false,
@@ -161,7 +165,7 @@ class _SigninPageState extends State<SigninPage> {
             const SizedBox(height: 10),
 
             // password textfield
-            MyTextField(
+            MyTextFieldComp(
               controller: _passwordController,
               hintText: 'Password',
               obscureText: true,
@@ -169,6 +173,17 @@ class _SigninPageState extends State<SigninPage> {
 
             const SizedBox(height: 10),
 
+            // username text field if signing up
+            Visibility(
+              visible: !_signingIn,
+              child: MyTextFieldComp(
+                controller: _usernameController,
+                hintText: 'Enter new username',
+                obscureText: false,
+              ),
+            ),
+
+            const SizedBox(height: 10),
             // forgot password?
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25.0),
@@ -227,12 +242,12 @@ class _SigninPageState extends State<SigninPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 // google button
-                SquareTile(imagePath: 'lib/images/google.png'),
+                SquareTileComp(imagePath: 'lib/images/google.png'),
 
                 SizedBox(width: 25),
 
                 // apple button
-                SquareTile(imagePath: 'lib/images/apple.png')
+                SquareTileComp(imagePath: 'lib/images/apple.png')
               ],
             ),
 

@@ -6,7 +6,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'package:tauker_mobile/main.dart';
 
-import 'profile_page.dart';
+import '../pages/profile_page.dart';
 
 class LoginPage2 extends StatefulWidget {
   const LoginPage2({super.key});

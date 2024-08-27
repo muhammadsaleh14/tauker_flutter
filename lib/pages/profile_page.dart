@@ -4,7 +4,8 @@
 import 'package:tauker_mobile/components/audioPlayer_comp.dart';
   import 'package:tauker_mobile/components/avatar_comp.dart';
   import 'package:tauker_mobile/main.dart';
-  import 'package:tauker_mobile/pages/login_page2.dart';
+  import 'package:tauker_mobile/trash/login_page2.dart';
+import 'package:tauker_mobile/pages/signin_page.dart';
   import 'package:tauker_mobile/providers/profile_provider.dart';
 
   class ProfilePage extends ConsumerStatefulWidget {
@@ -115,7 +116,7 @@ import 'package:tauker_mobile/components/audioPlayer_comp.dart';
                     ],
                   ),
                   const SizedBox(height: 18),
-                  AudioplayerComp(audioUrl: null),
+                  AudioPlayerComp(audioUrl: null),
                   const SizedBox(height: 18),
                   TextButton(onPressed: _signOut, child: const Text('Sign Out')),
                 ],
@@ -145,7 +146,7 @@ import 'package:tauker_mobile/components/audioPlayer_comp.dart';
       } finally {
         if (mounted) {
           Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (_) => const LoginPage2()),
+            MaterialPageRoute(builder: (_) => const SigninPage()),
           );
         }
       }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:tauker_mobile/components/avatar_comp.dart';
 import 'package:tauker_mobile/main.dart';
-import 'package:tauker_mobile/pages/login_page2.dart';
+import 'package:tauker_mobile/trash/login_page2.dart';
 
 class EditProfilePage extends StatefulWidget {
   const EditProfilePage({super.key});
