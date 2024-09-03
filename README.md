@@ -8,6 +8,11 @@ Followed the above steps to set up magic auth and adding image. Account creation
 - [db_Design](https://drive.google.com/file/d/1FT2vqG3KzaNQkXEhkLpsURSBkjv3QMe1/view)
 - [Trello join as a member](https://trello.com/invite/b/66b9065dadc9099bfeb45860/ATTI321676b452a98ce5c344d475c7f20eeb0A014408/tauker)
 
+## General guidelines / code practices
+1) _ is used to mark a field as private, always do if possible
+2) final to improve performance
+3) codeEditor_comp -> naming like given (name in camel case then _ and type of widget)
+
 ### Roadmap 1 / ui focused
 1) Signup/login
 2) Make Post
